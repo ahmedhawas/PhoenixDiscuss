@@ -25,4 +25,11 @@ defmodule Discuss.Router do
     # delete "/topics/:id", TopicController, :delete
     resources "/topics", TopicController
   end
+
+  scope "/auth", Discuss do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request # handle initial auth requsst
+    get "/:provider/callback", AuthController, :callback
+  end
 end
